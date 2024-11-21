@@ -18,7 +18,7 @@ pip install mia-1.0-py3-none-any.whl
 
 ### 第二步：训练目标模型和影子模型
 
-在你的代码中通过import mia就可以导入该库，或通过from mia import core,utils导入必要的模块，并需要传入必要的参数，可以在程序中定义默认值也可以通过命令行传入，接着就可以调用core中的函数来进行成员推理攻击。下面展示命令行传入的过程：
+在你的代码中通过import mia就可以导入该库，或通过from mia import core,utils导入必要的模块，并需要传入必要的参数，可以在程序中定义默认值也可以通过命令行传入，接着就可以调用core中的函数来进行成员推理攻击。其中，detected和ration参数分别代表是否启动数据撤销功能以及撤销数据的比例，默认不进行数据撤销。下面展示命令行传入的过程：
 - 训练目标模型
 ```
 python test.py --mode target
@@ -99,7 +99,7 @@ if __name__ == "__main__":
 ```
 上述代码中的参数可以根据需求删除修改，没有添加的参数使用默认参数，在demo.py目录下，在命令行中依次输入以下命令：
 ```
-python demo.py --mode target
+python demo.py --mode target --detected 1 
 python demo.py --mode shadow
 python demo.py --mode distill_target
 python demo.py --mode distill_shadow
