@@ -1,0 +1,6 @@
+mindspore==1.8.1
+mindvision==0.1.0
+opencv-contrib-python-headless==4.5.5.64
+opencv-python==4.5.5.64
+opencv-python-headless==4.5.5.64
+aim
