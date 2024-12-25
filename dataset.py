@@ -9,6 +9,7 @@ from torch._utils import _accumulate
 from torch import randperm
 import numpy as np
 import pandas as pd
+from torch.utils.data import Dataset, DataLoader
 
 def dataset_split(dataset, lengths):
     if sum(lengths) != len(dataset):
@@ -20,11 +21,6 @@ def dataset_split(dataset, lengths):
     return [Subset(dataset, indices[offset - length:offset]) for offset, length in zip(_accumulate(lengths), lengths)]
 
     return all_data
-
-import torch
-from torch.utils.data import Dataset, DataLoader
-from torchvision import datasets, transforms
-from torch.utils.data import ConcatDataset
 
 class SUBMNIST(Dataset):
     def __init__(self, mode, aug, train):
