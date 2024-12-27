@@ -1,6 +1,7 @@
 import argparse
 from mia import core,utils
 
+#命令行参数
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='TrajectoryMIA')
     parser.add_argument('--action', type=int, default=0, help=[0, 1, 2])
