@@ -33,7 +33,7 @@ VGGNet模型探索了卷积神经网络的深度和其性能之间的关系，�
 
 VGGNet全部使用 3 * 3 的卷积核和 2 * 2 的池化核，通过不断加深网络结构来提升性能。网络层数的增长并不会带来参数量上的爆炸，因为参数量主要集中在最后三个全连接层中。同时，两个 3 * 3 卷积层的串联相当于1个 5 * 5 的卷积层，3个 3 * 3 的卷积层串联相当于1个 7 * 7 的卷积层，即3个 3 * 3 卷积层的感受野大小相当于1个 7 * 7 的卷积层。但是3个 3 * 3 的卷积层参数量只有 7 * 7 的一半左右，同时前者可以有3个非线性操作，而后者只有1个非线性操作，经过了更多次非线性变化使得前者对于特征的学习能力更强。如下图所示，它表示两个串联 3 * 3的卷积层功能类似于一个 5 * 5 的卷积层。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo1.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo1.png" width="30%">
 
 使用1*1的卷积层来增加线性变换，输出的通道数量上并没有发生改变。
 
@@ -45,19 +45,19 @@ VGGNet全部使用 3 * 3 的卷积核和 2 * 2 的池化核，通过不断加深
 
 VGGNet在训练的时候先训级别A的简单网络，再复用A网络的权重来初始化后面的几个复杂模型，这样收敛速度更快。VGGNet作者总结出LRN层作用不大，越深的网络效果越好， 1 * 1的卷积也是很有效的，但是没有 3 * 3 的卷积效果好，因为 3 * 3 的网络可以学习到更大的空间特征，并且既可以保证感受视野，有能减少卷积层的参数。如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo3.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo3.png" width="40%">
 
 ### 网络结构
 
  VGGNet的网络结构如下图所示。VGGNet包含很多级别的网络，深度从11层到19层不等，比较常用的是VGGNet-16和VGGNet-19。VGGNet把网络分成了5段，每段都把多个3*3的卷积网络串联在一起，每段卷积后面接一个最大池化层，最后面是3个全连接层和一个softmax层。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo2.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo2.png" width="50%">
 
 上图中的D和E即为常用的VGG-16和VGG-19，前者拥有13个核大小均为 3 * 3 的卷积层、5个最大池化层和3个全连接层，后者拥有16个核大小均为 3 * 3 的卷积层、5个最大池化层和3个全连接层。本文主要针对VGG16进行解读，可以看出VGG19只是多了3个卷积层而已，其它的和VGG-16没啥区别。
 
 表中的卷积层(conv3-kernels，其中kernels代表卷积核的个数)全部都是大小为 3 * 3、步距为1、padding为1的卷积操作(经过卷积后不会改变特征矩阵的高和宽，但是深度改变，深度的大小等于卷积核的数量)。最大池化下采样层全部都是池化核大小为2、步距为2的池化操作(每次通过最大池化下采样后特征矩阵的高和宽都会缩减为原来的一半，但是深度不变)。VGG-16的结构图如下图：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo4.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo4.png" width="40%">
 
 由上图所示，VGG-16架构：13个卷积层+3个全连接层(共16层，不计入池化层和Softmax)，前5段卷积网络(标号1-5)，主要用于提取特征；最后一段是三个全连接网络(标号6-8)，主要用于分类。注意最后一个全连接层是没有激活函数的，因为它最后要使用Softmax函数对结果进行概率化。
 
@@ -71,7 +71,7 @@ VGGNet的结构十分简洁，由5个卷积层、3个全连接层和1个softmax�
 
 VGGNet使用含有多个小型的 3 * 3 卷积核的卷积层来代替AlexNet中的卷积核较大的卷积层，采用多个小型卷积核，既能减少参数的数量，又能增强网络的非线性映射从而提升网络的表达能力。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo6.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo6.png" width="40%">
 
 
 ```
@@ -106,7 +106,7 @@ VGGNet的第一层有64个通道，后面的每一层都对通道进行了翻倍
 
 这个特征是体现在VGGNet的测试阶段。在进行网络测试时，将训练阶段的3个全连接层替换为3个卷积层，使测试得到的网络没有全连接的限制，能够接收任意宽和高的输入。如果后面3个层都是全连接层，那么在测试阶段就只能将测试的图像全部缩放到固定尺寸，这样就不便于多尺度测试工作的开展。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo5.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo5.png" width="50%">
 
 ```
 为什么这样替换之后就可以处理任意尺寸的输入图像了呢?
@@ -219,38 +219,38 @@ for i in range(n): #取前n张图片
 
 运行train.py之前，要加载好要训练的数据集，如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo7.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo7.png" width="50%">
 
 以及训练好的最好模型权重best_model.pth的保存路径：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo8.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo8.png" width="50%">
 
 这里我们设置训练轮次为4，由于没有提前下载好数据集，所以程序会自动下载在/data目录下，运行结果如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo9.jpg" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo9.jpg" width="50%">
 
 最好的模型权重保存在设置好的路径中：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo10.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo10.png" width="30%">
 
 从下图最后一轮的损失值和精确度可以看出，训练的成果已经是非常准确的了，并且程序会打印出训练的总耗时，VGGNet模型由于网络模型计算步骤相较之前的卷积模型更复杂，所以在cpu上训练的时间会比较长，对cpu的占用也比较大。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo11.jpg" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo11.jpg" width="40%">
 
 特别地，程序会弹出一个图像，展示了训练损失值、训练精度和测试精度随着训练轮次增多而变化的曲线。由图可以看出训练过程中的损失值是存在波动的，但是训练和测试的精度一直呈上升的趋势，且在第二轮训练过后精确值就很接近于100%了。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo12.jpg" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo12.jpg" width="40%">
 
 最后我们运行test.py程序，首先要把train.py运行后保存好的best_model.pth文件加载进来，设置的参数如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo13.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo13.png" width="50%">
 
 这里我们设置推理测试数据集中的前20张图片，每推理一张图片，都会弹出来显示在屏幕上，要手动把图片关闭才能打印出预测值和实际值：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo14.jpg" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo14.jpg" width="40%">
 
 由下图最终的运行结果我们可以看出，推理的结果是较为准确的，预测值和真实值都是相匹配的，大家可以增加推理图片的数量以测试模型的准确性。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo15.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/VGGNet/photo15.png" width="50%">
 
 其他数据集的训练和推理步骤和MNIST数据集大同小异，唯一不同的是多通道数据集的数据变换操作，需要先转换为灰度图像。
