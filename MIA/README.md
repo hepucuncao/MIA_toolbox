@@ -54,7 +54,7 @@
 
 为了训练的攻击模型，本文将介绍多个影子模型(shadow model)，这些模型的行为类似于目标模型，与目标模型相比每个影子模型的真实情况是已知的，即给定的记录是否在其训练数据集中。因此，可以对影子模型的输入和相应的输出(每个标记为“in”或“out”)进行监督训练，教攻击模型如何区分影子模型对其训练数据集成员的输出和对非成员的输出，如下图：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo28.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo28.png" width="50%">
 
 攻击者使用数据记录查询目标模型，并获取该记录的模型预测。预测是一个概率向量，每类一个，表明记录属于某个类。该预测向量连同目标记录的标签被传递到攻击模型，该攻击模型推断该记录是否在目标模型的训练数据集中。
 
@@ -64,7 +64,7 @@
 
 影子模型必须以与目标模型类似的方式进行训练。如果目标的训练算法(例如：神经网络、SVM、逻辑回归)和模型结构(例如神经网络的连线)是已知的，那这将很容易。机器学习即服务则更具挑战性，因为这里不知道目标模型的类型和结构，但攻击者可以使用完全相同的服务，像用于训练目标模型那样训练影子模型，见下图：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo29.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo29.png" width="50%">
 
 目标模型和影子模型的训练数据集具有相同的格式但不相交。阴影模型的训练数据集可以重叠。所有模型的内部参数都是独立训练的。
 
@@ -98,7 +98,7 @@
 
 使用自己的训练数据集和相同大小的不相交测试集来查询每个影子模型。训练数据集上的输出被标记为in，其余的标记为out。现在，攻击者拥有记录的数据集、影子模型的相应输出和输入/输出标签。攻击模型的目标是从记录和相应的输出中推断出标签，如下图：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo30.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo30.png" width="50%">
 
 实验中将识别训练数据集成员与模型输出之间复杂关系转化为一个二分类问题。二分类是一项标准的机器学习任务，因此，可以使用任何先进的机器学习框架或服务来建立攻击模型，且该方法不依赖于攻击模型训练的具体方法。
 
@@ -213,35 +213,35 @@ train_target_model和train_shadow_models函数分别用于训练目标模型和�
 
 首先要进行run_attack.py程序中一些参数和路径的定义，如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo17.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo17.png" width="50%">
 
 全部程序运行完毕后，可以看到控制台打印出的信息，下面具体分析输出的结果。
 
 首先是一组参数（字典）的输出，这些参数定义了模型训练的配置：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo8.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo8.png" width="50%">
 
 其中target_model: 目标模型(例如CNN);target_learning_rate: 目标模型的学习率;target_epochs: 目标模型训练的轮数;n_shadow: 阴影模型的数量;attack_model: 攻击模型(例如FC，全连接模型);attack_epochs: 攻击模型训练的轮数，等等。
 
 接着开始训练目标模型，输出显示了目标模型在训练集和测试集上的准确率：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo9.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo9.png" width="50%">
 
 开始训练阴影模型，每训练一个阴影模型(如0到9)，都会输出类似的信息，展示了该阴影模型在训练集和测试集上的准确率，并表明训练完成。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo10.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo11.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo10.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo11.png" width="50%">
 
 训练所有阴影模型后，继续训练攻击模型，训练了针对每个类别的攻击模型，并输出每个类别的训练集和测试集准确率。同时，还会输出用于训练和测试的数据集中的样本数量，这些数字对于评估模型的性能非常重要。通常，训练集用于调整模型参数，而测试集用于评估模型在未见过的数据上的泛化能力。在理想情况下，测试集应该足够大，以便能够提供对模型性能的可靠估计，训练集也应该足够大，以便模型能够学习到数据中的模式和特征。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo12.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo13.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo14.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo15.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo12.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo13.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo14.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo15.png" width="50%">
 
 最后打印出分类报告：输出了精确度、召回率、F1分数、支持度等指标，整体准确率在0.60附近。整体来看，模型的表现还有提升的空间，可以进一步优化模型参数和训练策略。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo16.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo16.png" width="50%">
 
 ## 复杂场景下的成员推断攻击
 
@@ -263,7 +263,7 @@ train_target_model和train_shadow_models函数分别用于训练目标模型和�
  ├  ├── ResNet   # ResNet模型训练代码
  │      └── resnet_train.py     # ResNet模型完全重训练代码
  │      └── resnet_part_train.py   #ResNet模型分组重训练代码
- ├  ├── MIA_attack  # 复杂场景下的成员推理攻击代码
+ ├  ├── MIA_attack  # 攻击代码
  │      └── cnn_model.py    # 各种网络模型代码
  │      └── fc_model.py     # FCNet神经网络模型
  │      └── run_attack.py   # 成员推断攻击代码
@@ -323,15 +323,15 @@ train_dataloader_5 = torch.utils.data.DataLoader(remaining_train_dataset_5, batc
 
 (1)完全重训练
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo14.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo14.png" width="30%">
 
 (图1：未删除数据的LeNet5模型训练准确率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo18.jpg" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo18.jpg" width="30%">
 
 (图2：删除5%数据后的LeNet5训练准确率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo19.jpg" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo19.jpg" width="30%">
 
 (图3：删除10%数据后的LeNet5训练准确率)
 
@@ -339,15 +339,15 @@ train_dataloader_5 = torch.utils.data.DataLoader(remaining_train_dataset_5, batc
 
 为了验证上面的结果是否具有普遍性，我们应该尝试更多种类数据集和更多种类的模型，这里笔者又使用多通道数据集CIFAR-10进行数据的删除及模型的训练，结果如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo35.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo35.png" width="30%">
 
 (图4：未删除数据的LeNet5模型训练准确率-cifar10)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo36.jpg" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo36.jpg" width="30%">
 
 (图5：删除5%数据后的LeNet5训练准确率-cifar10)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo37.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo37.png" width="30%">
 
 (图6：删除10%数据后的LeNet5训练准确率-cifar10)
 
@@ -355,11 +355,11 @@ train_dataloader_5 = torch.utils.data.DataLoader(remaining_train_dataset_5, batc
 
 (2)分组重训练
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo31.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo31.png" width="30%">
 
 (图7：删除5%数据后的LeNet5训练准确率，这里随机删除了第2组的数据)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo32.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo32.png" width="30%">
 
 (图8：删除10%数据后的LeNet5训练准确率，这里随机删除了9组的数据)
 
@@ -369,29 +369,29 @@ train_dataloader_5 = torch.utils.data.DataLoader(remaining_train_dataset_5, batc
 
 (1)完全重训练
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo20.jpg" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo20.jpg" width="30%">
 
 (图9：未删除数据的ResNet模型训练准确率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo22.jpg" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo22.jpg" width="30%">
 
 (图10：删除5%数据后的ResNet训练准确率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo21.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo21.png" width="30%">
 
 (图11：删除10%数据后的ResNet训练准确率)
 
 同样地，为进一步说明结论，下面是使用KMNIST数据集得出的结果：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo38.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo38.png" width="30%">
 
 (图12：未删除数据的ResNet模型训练准确率-KMNIST)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo39.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo39.png" width="30%">
 
 (图13：删除5%数据后的ResNet训练准确率-KMNIST)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo40.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo40.png" width="30%">
 
 (图14：删除5%数据后的ResNet训练准确率-KMNIST)
 
@@ -399,11 +399,11 @@ train_dataloader_5 = torch.utils.data.DataLoader(remaining_train_dataset_5, batc
 
 (2)分组重训练
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo33.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo33.png" width="30%">
 
 (图15：删除5%数据后的ResNet训练准确率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo34.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo34.png" width="30%">
 
 (图16：删除10%数据后的ResNet训练准确率)
 
@@ -417,15 +417,15 @@ train_dataloader_5 = torch.utils.data.DataLoader(remaining_train_dataset_5, batc
 
 3.然后开始对形成的模型进行成员推理攻击，首先比较删除数据前后训练而成的LeNet5模型的攻击成功率，如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo23.jpg" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo23.jpg" width="30%">
 
 (图17：未删除数据的LeNet5模型攻击成功率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo24.jpg" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo24.jpg" width="30%">
 
 (图18：删除5%数据后的LeNet5模型攻击成功率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo25.jpg" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo25.jpg" width="30%">
 
 (图19：删除10%数据后的LeNet5模型攻击成功率)
 
@@ -433,15 +433,15 @@ train_dataloader_5 = torch.utils.data.DataLoader(remaining_train_dataset_5, batc
 
 4.接着比较删除数据前后训练而成的ResNet模型的攻击成功率，如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo27.jpg" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo27.jpg" width="30%">
 
 (图20：未删除数据的ResNet模型攻击成功率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo28.jpg" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo28.jpg" width="30%">
 
 (图21：删除5%数据后的ResNet模型攻击成功率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo29.jpg" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo29.jpg" width="30%">
 
 (图22：删除10%数据后的ResNet模型攻击成功率)
 
@@ -449,15 +449,15 @@ train_dataloader_5 = torch.utils.data.DataLoader(remaining_train_dataset_5, batc
 
 为了更好地得出结论，我们还可以多尝试更多种的数据集类型和模型，这里笔者又用多通道数据集CIFAR-10进行了验证，得到的结果如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo23.jpg" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo23.jpg" width="30%">
 
 (图17：未删除数据的LeNet5模型攻击成功率-cifar10)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo24.jpg" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo24.jpg" width="30%">
 
 (图18：删除5%数据后的LeNet5模型攻击成功率-cifar10)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/MIA/photo25.jpg" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/MIA/photo25.jpg" width="30%">
 
 (图19：删除10%数据后的LeNet5模型攻击成功率-cifar10)
 
