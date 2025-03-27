@@ -60,6 +60,29 @@ python main.py --action 1 --mia_type black-box
 ```
 训练的模型和生成的数据将保存到 './networks/{seed}/{mode}/{data}_{model}'。
 
+# 📁 项目结构树
+
+```bash
+
+├── 📂 Graph/                  # 图模型
+│── 📂 LeNet5/                 # LeNet5模型
+│── 📂 VGGNet/                 # VGGNet模型
+├── 📂 MIA/                    # 成员推断攻击模块
+├── 📂 RL/                     # 强化学习模型
+├── 📂 RNN/                    # 循环神经网络模型
+├── 📂 ResNet/                 # ResNet模型
+├── 📂 Transformer/            # 基于Transformer的生成式人工智能模型
+│
+├── 📄 LICENSE                    # 许可证文件
+├── 📄 README.md                  # 项目说明文档
+├️── 📄 architectures.py           # 模型架构定义
+├️── 📄 dataset.py                 # 数据集处理
+├️── 📄 demo.py                    # 示例脚本
+├️── 📄 main.py                    # 主程序入口
+├️── 📄 mia-1.0-py3-none-any.whl   # 打包文件
+├️── 📄 normal.py                  # 标准化处理
+└── 📄 utils.py                   # 工具函数
+
 ## 实例
 
 本项目默认使用CIFAR100数据集，针对ResNet56模型且epoch为100，您可以根据需要更改参数。
