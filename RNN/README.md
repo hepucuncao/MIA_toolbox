@@ -39,15 +39,15 @@
 
 循环神经网络(RNNs)是神经网络中一个大家族，它们主要用于文本、信号等序列相关的数据。不同于传统的FNNs(Feed-forward Neural Networks，前向反馈神经网络)，RNNs引入了定向循环，能够处理那些输入之间前后关联的问题。定向循环结构如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo1.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo1.png" width="50%">
 
 
 ### 什么是RNNs？
 
 RNNs的目的是用来处理序列数据。在传统的神经网络模型中，是从输入层到隐含层再到输出层，层与层之间是全连接的，每层之间的节点是无连接的，但是这种普通的神经网络对于很多问题却无能无力。例如，你要预测句子的下一个单词是什么，一般需要用到前面的单词，因为一个句子中前后单词并不是独立的。RNNs之所以称为循环神经网络，即一个序列当前的输出与前面的输出也有关。具体的表现形式为网络会对前面的信息进行记忆并应用于当前输出的计算中，即隐藏层之间的节点不再无连接而是有连接的，并且隐藏层的输入不仅包括输入层的输出还包括上一时刻隐藏层的输出。理论上，RNNs能够对任何长度的序列数据进行处理。但是在实践中，为了降低复杂性往往假设当前的状态只与前面的几个状态相关，下图便是一个典型的RNNs：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo2.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo3.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo2.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo3.png" width="50%">
 
 
 RNNs包含输入单元(Input units)，输入集标记为{x0,x1,...,xt,xt+1,...}，而输出单元(Output units)的输出集则被标记为{y1,y2,...,yt,yt+1,...}，RNNs还包含隐藏单元(Hidden units)，我们将其输出集标记为{s1,s2,...,st,st+1,...}，这些隐藏单元完成了最为主要的工作，它是网络的记忆单元。为了降低网络的复杂度，往往st只包含前面若干步而不是所有步的隐藏层状态。如上图所示，有一条单向流动的信息流是从输入单元到达隐藏单元的，与此同时另一条单向流动的信息流从隐藏单元到达输出单元。在某些情况下，RNNs会打破后者的限制，引导信息从输出单元返回隐藏单元(称为“Back Projections)，并且隐藏层的输入还包括上一隐藏层的状态，即隐藏层内的节点可以自连也可以互连。
@@ -74,7 +74,7 @@ RNNs已经被在实践中证明对NLP是非常成功的，在RNNs中，目前使
 
 机器翻译是将一种源语言语句变成意思相同的另一种源语言语句，如将英语语句变成同样意思的中文语句。与语言模型关键的区别在于，需要将源语言语句序列输入后，才进行输出，即输出第一个单词时，便需要从完整的输入序列中进行获取。机器翻译如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo4.png" width="60%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo4.png" width="60%">
 
 **语音识别(Speech Recognition)**
 
@@ -84,7 +84,7 @@ RNNs已经被在实践中证明对NLP是非常成功的，在RNNs中，目前使
 
 和卷积神经网络(convolutional Neural Networks, CNNs)一样，RNNs已经在对无标图像描述自动生成中得到应用。将CNNs与RNNs结合进行图像描述自动生成，该组合模型能够根据图像的特征生成描述。如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo5.png" width="60%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo5.png" width="60%">
 
 ### 如何训练RNNs
 
@@ -117,7 +117,7 @@ nn.RNN()方法中，有以下几个参数：
 
 **Simple RNNs(SRNs)**
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo6.png" width="20%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo6.png" width="20%">
 
 SRNs是RNNs的一种特例，它是一个三层网络，并且在隐藏层增加了上下文单元，上图中的便是隐藏层，u便是上下文单元。上下文单元节点与隐藏层中的节点的连接是固定的，并且权值也是固定的，即一个上下文节点与隐藏层节点一一对应，并且值是确定的。在每一步中，使用标准的前向反馈进行传播，并使用学习算法进行学习。上下文每一个节点保存其连接的隐藏层节点的上一步的输出，即保存上文，并作用于当前步对应的隐藏层节点的状态，即隐藏层的输入由输入层的输出与上一步的自己的状态所决定的。因此SRNs能够解决标准的多层感知机(MLP)无法解决的对序列数据进行预测的任务。
 
@@ -125,31 +125,31 @@ SRNs是RNNs的一种特例，它是一个三层网络，并且在隐藏层增加
 
 Bidirectional RNNs(双向网络)的改进之处便是，假设当前的输出(第t步的输出)不仅与前面的序列有关，并且还与后面的序列有关。Bidirectional RNNs是一个相对较简单的RNNs，是由两个RNNs上下叠加在一起组成的。输出由这两个RNNs的隐藏层的状态决定的。如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo7.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo7.png" width="30%">
 
 **Deep(Bidirectional)RNNs**
 
 Deep(Bidirectional)RNNs与Bidirectional RNNs相似，只是对于每一步的输入有多层网络，使该网络便有更强大的表达与学习能力，但复杂性也提高了，同时需要更多的训练数据。Deep(Bidirectional)RNNs的结构如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo8.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo8.png" width="30%">
 
 **Gated Recurrent Unit Recurrent Neural Networks**
 
 GRUs是一般的RNNs的改良版本，主要是从以下两个方面进行改进。一、序列中不同的位置处的单词对当前的隐藏层的状态的影响不同，越前面的影响越小，即每个前面状态对当前的影响进行了距离加权，距离越远，权值越小。二、在产生误差error时，误差可能是由某一个或者几个单词而引发的，所以应仅仅对对应的单词weight进行更新。GRUs的结构如下图所示。GRUs首先根据当前输入单词向量word vector以及前一个隐藏层的状态hidden state计算出update gate和reset gate，再根据reset gate、当前word vector以及前一个hidden state计算新的记忆单元内容(new memory content)。当reset gate为1的时候，new memory content忽略之前的所有memory content，最终的memory是之前的hidden state与new memory content的结合。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo9.png" width="60%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo9.png" width="60%">
 
 **LSTM Netwoorks**
 
 LSTMs与GRUs类似，它与一般的RNNs结构本质上并没有什么不同，只是使用了不同的函数去去计算隐藏层的状态。在LSTMs中，i结构被称为cells，可以把cells看作是黑盒用以保存当前输入xt之前的保存的状态ht−1，这些cells决定哪些cell抑制哪些cell兴奋，结合前面的状态、当前的记忆与当前的输入。已经证明，该网络结构在对长序列依赖问题中非常有效。LSTMs的网络结构如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo10.png" width="60%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo10.png" width="60%">
 
 **Clockwork RNNs(CW-RNNs)**
 
 CW-RNNs也是一个RNNs的改良版本，是一种使用时钟频率来驱动的RNNs。它将隐藏层分为几个块(组，Group/Module)，每一组按照自己规定的时钟频率对输入进行处理。并且为了降低标准的RNNs的复杂性，CW-RNNs减少了参数的数目，提高了网络性能，加速了网络的训练。CW-RNNs通过不同的隐藏层模块工作在不同的时钟频率下来解决长时间依赖问题。将时钟时间进行离散化，然后在不同的时间点，不同的隐藏层组在工作。因此，所有的隐藏层组在每一步不会都同时工作，这样便会加快网络的训练。并且，时钟周期小的组的神经元的不会连接到时钟周期大的组的神经元，只会周期大的连接到周期小的(即组与组之间的连接是有向的，代表信息的传递是有向的)，周期大的速度慢，周期小的速度快，那么便是速度慢的连接速度快的，反之则不成立。CW-RNNs的网络结构如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo11.png" width="60%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo11.png" width="60%">
 
 ## RNN实现
 
@@ -284,35 +284,35 @@ for i in range(n): #取前n张图片
 
 成功运行完net.py程序后，加载train.py程序的数据集：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo13.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo13.png" width="50%">
 
 以及best_model.pth的保存路径：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo12.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo12.png" width="50%">
 
 这里我们设置训练轮次为20，由于没有提前下载好数据集，所以程序会自动下载在/MNIST目录下，运行结果如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo12.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo12.png" width="50%">
 
 最好的模型权重保存在设置好的路径中：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo13.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo13.png" width="30%">
 
 从下图最后一轮的损失值和精确度可以看出，训练的成果已经是非常准确的了，几乎保持在98、99%附近。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo14.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo14.png" width="30%">
 
 最后我们运行test.py程序，首先要把train.py运行后保存好的best_model.pth文件加载进来，设置的参数如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo15.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo15.png" width="50%">
 
 这里我们设置推理测试数据集中的前20张图片，每推理一张图片，都会弹出来显示在屏幕上，要手动把图片关闭才能打印出预测值和实际值：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo15.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo15.png" width="30%">
 
 由下图最终的运行结果我们可以看出，推理的结果是较为准确的，大家可以增加推理图片的数量以测试模型的准确性。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo16.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo16.png" width="50%">
 
 其他数据集的训练和推理步骤和MNIST数据集大同小异。
 
@@ -403,34 +403,34 @@ train_target_model和train_shadow_models函数分别用于训练目标模型和�
 
 首先要进行run_attack.py程序中一些参数和路径的定义，如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo17.jpg" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo17.png" width="50%">
 
 全部程序运行完毕后，可以看到控制台打印出的信息，下面具体分析输出的结果。
 
 首先是一组参数（字典）的输出，这些参数定义了模型训练的配置：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo18.png" width="100%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo18.png" width="100%">
 
 其中target_model: 目标模型(例如RNN);target_learning_rate: 目标模型的学习率;target_epochs: 目标模型训练的轮数;n_shadow: 阴影模型的数量;attack_model: 攻击模型(例如FC，全连接模型);attack_epochs: 攻击模型训练的轮数，等等。
 
 接着开始训练目标模型，输出显示了目标模型在训练集和测试集上的准确率：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo19.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo19.png" width="50%">
 
 开始训练阴影模型，每训练一个阴影模型(如0到9)，都会输出类似的信息，展示了该阴影模型在训练集和测试集上的准确率，并表明训练完成。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo20.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo21.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo20.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo21.png" width="50%">
 
 训练所有阴影模型后，继续训练攻击模型，训练了针对每个类别的攻击模型，并输出每个类别的训练集和测试集准确率。同时，还会输出用于训练和测试的数据集中的样本数量，这些数字对于评估模型的性能非常重要。通常，训练集用于调整模型参数，而测试集用于评估模型在未见过的数据上的泛化能力。在理想情况下，测试集应该足够大，以便能够提供对模型性能的可靠估计，训练集也应该足够大，以便模型能够学习到数据中的模式和特征。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo22.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo23.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo24.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo22.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo23.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo24.png" width="50%">
 
 最后打印出分类报告：输出了精确度、召回率、F1分数、支持度等指标，整体准确率在0.50~0.60附近。整体来看，模型的表现还有提升的空间，可以进一步优化模型参数和训练策略。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo25.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo25.png" width="50%">
 
 ## 复杂场景下的成员推断攻击
 
@@ -509,15 +509,15 @@ train_dataloader_5 = torch.utils.data.DataLoader(remaining_train_dataset_5, batc
 
 (1)完全重训练
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo26.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo26.png" width="30%">
 
 (图1：未删除数据的RNN模型训练准确率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo27.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo27.png" width="30%">
 
 (图2：删除5%数据后的RNN训练准确率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo28.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo28.png" width="30%">
 
 (图3：删除10%数据后的RNN训练准确率)
 
@@ -525,11 +525,11 @@ train_dataloader_5 = torch.utils.data.DataLoader(remaining_train_dataset_5, batc
 
 (2)分组重训练
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo29.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo29.png" width="30%">
 
 (图4：删除5%数据后的RNN训练准确率，这里随机删除了第1组的数据)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo30.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo30.png" width="30%">
 
 (图5：删除10%数据后的RNN训练准确率，这里随机删除了3组的数据)
 
@@ -545,15 +545,15 @@ train_dataloader_5 = torch.utils.data.DataLoader(remaining_train_dataset_5, batc
 
 2.然后开始对形成的模型进行成员推理攻击，首先比较删除数据前后训练而成的RNN模型的攻击成功率，如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo31.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo31.png" width="30%">
 
 (图6：未删除数据的RNN模型攻击成功率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo32.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo32.png" width="30%">
 
 (图7：删除5%数据后的RNN模型攻击成功率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo33.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo33.png" width="30%">
 
 (图8：删除10%数据后的RNN模型攻击成功率)
 
@@ -594,4 +594,4 @@ eg.数据平衡：在攻击模型训练时，正类（被成员推理为训练�
 
 进行上述改进后，可以看到，针对RNN模型的成员推理攻击的准确率已经有了小幅提高。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo34.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo34.png" width="30%">
