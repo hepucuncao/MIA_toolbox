@@ -25,13 +25,13 @@
 
 ResNet是一种残差网络，咱们可以把它理解为一个子网络，这个子网络经过堆叠可以构成一个很深的网络。下面是一个简单的ResNet结构：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/ResNet/photo1.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/ResNet/photo1.png" width="50%">
 
 ### 为什么要引入ResNet？
 
 通过前面的学习我们知道，网络越深，咱们能获取的信息越多，而且特征也越丰富。但是根据实验表明，随着网络的加深，优化效果反而越差，测试数据和训练数据的准确率反而降低了，这是由于网络的加深会造成梯度爆炸和梯度消失的问题。如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/ResNet/photo2.png" width="60%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/ResNet/photo2.png" width="60%">
 
 为了让更深的网络也能训练出好的效果，一个新的网络结构——ResNet出现了。
 
@@ -39,7 +39,7 @@ ResNet是一种残差网络，咱们可以把它理解为一个子网络，这�
 
 ResNet block有两种，一种两层结构，一种三层结构，如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/ResNet/photo3.png" width="60%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/ResNet/photo3.png" width="60%">
 
 现在要求解的映射为：H(x)，将这个问题转换为求解网络的残差映射函数，也就是F(x)，其中F(x) = H(x)-x。
 ```
@@ -169,34 +169,34 @@ for i in range(n): #取前n张图片
 
 运行ResNet.py之前，要加载好要训练的数据集，如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/ResNet/photo4.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/ResNet/photo4.png" width="50%">
 
 以及训练好的最好模型权重best_model.pth的保存路径：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/ResNet/photo5.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/ResNet/photo5.png" width="50%">
 
 这里我们设置训练轮次为4，由于没有提前下载好数据集，所以程序会自动下载在/data目录下，运行结果如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/ResNet/photo6.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/ResNet/photo6.png" width="50%">
 
 最好的模型权重保存在设置好的路径中：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/ResNet/photo7.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/ResNet/photo7.png" width="30%">
 
 从下图最后一轮的损失值和精确度可以看出，训练的成果已经是非常准确的了！
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/ResNet/photo8.jpg" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/ResNet/photo8.jpg" width="30%">
 
 最后我们运行test.py程序，首先要把train.py运行后保存好的best_model.pth文件加载进来，设置的参数如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/ResNet/photo9.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/ResNet/photo9.png" width="50%">
 
 这里我们设置推理测试数据集中的前20张图片，每推理一张图片，都会弹出来显示在屏幕上，要手动把图片关闭才能打印出预测值和实际值：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/ResNet/photo10.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/ResNet/photo10.png" width="30%">
 
 由下图最终的运行结果我们可以看出，推理的结果是较为准确的，大家可以增加推理图片的数量以测试模型的准确性。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/ResNet/photo11.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/ResNet/photo11.png" width="50%">
 
 其他数据集的训练和推理步骤和MNIST数据集大同小异。
