@@ -31,6 +31,7 @@
 - [实现步骤](#实现步骤)
 - [结果记录及分析](#结果记录及分析)
 
+[文本处理](#文本处理)
 ## 基本介绍
 
 ### 什么是生成式AI
@@ -76,7 +77,7 @@
 
 Transformer模型本质上都是预训练语言模型，大都采用自监督学习(Self-supervised learning)的方式在大量生语料上进行训练，也就是说，训练这些Transformer模型完全不需要人工标注数据。Transformer架构分为两个主要部分：编码器(Encoder)和解码器(Decoder)，其架构的主要组成部分如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo1.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo1.png" width="40%">
 
 - Encoder(左边)：负责理解输入文本，为每个输入构造对应的语义表示(语义特征)；
 - Decoder(右边)：负责生成输出，使用Encoder输出的语义表示结合其他输入来生成目标序列。
@@ -94,7 +95,7 @@ Transformer架构的核心优势在于其能够学习句子中所有单词的相
 
 在这过程中，“自注意力”机制会分析文本的每一个 token，并判断哪些部分对理解其整体含义更为重要。这种功能对于创建高质量的文本非常关键。没有这个功能，某些词可能会在不适合的情境下被曲解。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo2.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo2.png" width="40%">
 
 在 “Transformer” 出现之前，先进的AI翻译主要依赖于循环神经网络(RNNs)，它们会逐词处理句子。然而，“Transformer” 通过“自注意力”机制，可以同时处理句子中的所有词，捕捉到更多的上下文信息，从而让生成式AI拥有更强大的语言处理能力。
 
@@ -122,6 +123,7 @@ Transformer架构的核心优势在于其能够学习句子中所有单词的相
  │  └── test.py    # 模型推理代码
  │  └── utils.py    # 模型评估代码
  │  └── dataset.py    # 数据处理代码
+ │  └── text.py    # 文本数据训练代码
  └── README.md 
 ```
 
@@ -193,7 +195,7 @@ model.load_state_dict(torch.load(model_weight_path, map_location=device))
 
 首先，我们要提前下载预训练权重文件，这里我们选择的是vit_base_patch16_224_in21k，如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo3.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo3.png" width="40%">
 
 ```
 
@@ -217,44 +219,44 @@ def vit_base_patch16_224_in21k(num_classes: int = 21843, has_logits: bool = True
 
 运行train.py之前，要加载好要训练的数据集，如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo4.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo4.png" width="50%">
 
 设置训练好的最好模型权重参数pth文件的保存路径以及主函数中的训练参数：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo5.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo5.png" width="50%">
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo6.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo6.png" width="50%">
 
 这里我们设置训练轮次为15，如果没有提前下载好数据集，程序会自动下载在我们设置好的目录下。
 
 训练好的模型权重参数保存在设置好的路径中：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo7.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo7.png" width="50%">
 
 正式运行的时候，我们要传入参数：将--data-path设置成解压后的训练集文件夹绝对路径、--weights参数设成下载好的预训练权重路径，设置好就能使用train.py脚本开始训练了。
 
 从下图最后一轮的损失值和精确度可以看出，精确度大多都可以保持在80%附近，可见训练的结果是较为准确的。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo8.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo8.png" width="50%">
 
 同时，训练过程中会自动生成class_indices.json文件，如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo12.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo12.png" width="50%">
 
 
 最后我们运行test.py程序，首先要把train.py运行后保存好的权重参数文件加载进来(默认保存在weights文件夹下)，设置的参数如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo9.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo9.png" width="50%">
 
 设置好之后运行即可对测试集准确率、召回率、F1分数进行计算（包括对每个类别的三种指标计算以及平均结果），并输出其柱形图，同时输出混淆矩阵。
 
 由下图最终的运行结果我们可以看出，测试的结果是较为准确的。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo10.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo11.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo13.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo14.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo15.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo10.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo11.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo13.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo14.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo15.png" width="50%">
 
 其他数据集的训练和推理步骤和CIFAR100数据集大同小异。
 
@@ -347,15 +349,15 @@ np.savez(MODEL_PATH + '保存文件名称', shadow_attack_x=shadow_attack_x, sha
 
 首先要进行run_attack.py程序中一些参数和路径的定义，如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo16.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo17.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo18.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo16.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo17.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo18.png" width="50%">
 
 开始训练阴影模型，每训练一个阴影模型(这里设置的是20轮)，都会输出类似的信息，展示了该阴影模型训练的损失值，损失值越小就说明训练的越准确，从结果可以看出，随着训练轮数的增多，损失值是呈下降趋势的。
 
 训练所有阴影模型后，继续训练目标模型和攻击模型，并输出模型的准确率，结果如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo19.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo19.png" width="40%">
 
 由于CIFAR100数据集的数据量比较大，训练速度会很慢，所以这里使用GPU进行训练，训练的轮数也比较少，读者可以根据环境修改轮数以提高准确率。
 
@@ -433,9 +435,9 @@ train_indices_10, deleted_indices_10 = get_subset_indices(train_dataset, delete_
 
 运行代码后程序会打印出删除%%、10%的样本数据的索引有哪些，如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo20.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo20.png" width="50%">
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo21.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo21.png" width="50%">
 
 
 ```
@@ -465,15 +467,15 @@ for epoch in range(args.finetune_epochs):
 
 (1)完全重训练
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo22.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo22.png" width="40%">
 
 (图1：未删除数据的Transformer模型训练准确率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo23.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo23.png" width="40%">
 
 (图2：删除5%数据后的Transformer训练准确率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo24.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo24.png" width="40%">
 
 (图3：删除10%数据后的Transformer训练准确率)
 
@@ -481,15 +483,15 @@ for epoch in range(args.finetune_epochs):
 
 (2)分组重训练
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo25.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo25.png" width="40%">
 
 (图4：未删除数据的Transformer模型训练准确率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo26.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo26.png" width="40%">
 
 (图5：删除5%数据后的Transformer训练准确率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo27.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo27.png" width="40%">
 
 (图6：删除10%数据后的Transformer训练准确率)
 
@@ -505,15 +507,15 @@ for epoch in range(args.finetune_epochs):
 
 2.然后开始对形成的模型进行成员推理攻击，首先比较删除数据前后训练而成的Transformer模型的攻击成功率，如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo28.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo28.png" width="40%">
 
 (图7：未删除数据的Transformer模型攻击成功率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo29.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo29.png" width="40%">
 
 (图8：删除5%数据后的Transformer模型攻击成功率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo30.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo30.png" width="40%">
 
 (图9：删除10%数据后的Transformer模型攻击成功率)
 
@@ -530,3 +532,51 @@ for epoch in range(args.finetune_epochs):
 
 本项目所采用的模型都是神经网络类的，如果采用非神经网络类的模型，例如，决策树、K-means等，可能会有不一样的攻击效果，读者可以尝试一下更多类型的模型观察一下。
 ```
+
+### 文本处理
+
+前面我们实现的Transformer模型都是基于图像数据训练的，接下来我们将引入文本数据，展示Transformer模型在文本处理和文本分类能力上的优势，以扩充Transformer模型的功能。
+
+在训练过程中，首先需要定义训练中需要配置的参数：
+```
+self.model_name = 'Transformer'
+        self.embedding_pretrained = None  # 预训练词向量
+        self.device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')   # 设备
+        self.dropout = 0.5 # 随机失活
+        self.num_classes = 2  # 类别数
+        self.num_epochs = 20  # epoch数
+        self.batch_size = 20  # mini-batch大小
+        self.pad_size = 500   # 每句话处理成的长度(短填长切)
+        self.n_vocab = None#这里需要读取数据的部分进行赋值
+        self.learning_rate = 5e-4  # 学习率
+        self.embed = 300  # 词向量维度
+        self.dim_model = 300
+        self.hidden = 1024
+        self.last_hidden = 512
+        self.num_head = 5
+        self.num_encoder = 2
+        self.checkpoint_path = './model.ckpt'
+```
+接着我们需要在net.py中添加可以处理文本数据的dataLoader、Transformer模型等，训练集使用常用的IMDB影评数据集，这里默认训练轮数为20轮，读者可以根据需要上述训练参数。
+
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo31.png" width="40%">
+
+训练开始后，程序会输出第一条文本数据："dark comedy? gallows humor? how does one make a comedy out of murder? ..."，这条文本是来自IMDB数据集中的一条影评，经过了去除换行符、转换为小写等处理。输出了该文本在字典编码下的表示：tensor([172, 173, 174, 175, ...])，这段代码将文本转换为词汇表中对应词汇的索引，形成了一个长度为500的张量（按 pad_size=500 截断或填充）。输出显示了这条文本中的每个词的索引。
+
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo32.png" width="40%">
+
+数据加载后，对每条评论进行了 tokenization，将其拆分为词元(token)，并通过词汇表将这些词元转换为对应的索引值。vocab_dict 是通过 torchtext 提供的 vocab 工具构建的，其中包含所有在训练数据中出现过且频次大于5的单词。每个词被分配了一个唯一的索引。
+
+这些信息表示在训练过程中，模型正在处理每个批次(batch)数据，并显示了训练进度。训练数据的批次大小为20，每个epoch处理12500个训练样本。由于数据量较大，训练时间通常会比较长。训练集和测试集的大小在代码中都有详细的打印。训练过程中显示了如下信息：
+
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo33.png" width="40%">
+
+在训练的最后，代码会绘制出两张图表：
+- 损失曲线：显示每个 epoch 后的平均训练损失（loss）。
+- 准确率曲线：显示每个 epoch 后的验证集准确率。 这些图表有助于监控训练过程中的性能变化，帮助调整超参数或优化模型。
+
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo34.png" width="40%">
+
+同时，在训练过程中，每次验证集的准确率提升时，都会保存当前训练的最佳模型，这确保了训练过程中模型状态的保存，以便在之后加载和评估。
+
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Transformer_AI/photo35.png" width="40%">
