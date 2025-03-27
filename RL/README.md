@@ -44,7 +44,7 @@
 
 ### 基本框架
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo1.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo1.png" width="40%">
 
 - 智能体(Agent)：强化学习的本体，作为学习者或者决策者，类比人的大脑;
 - 环境(Environment)：智能体以外的一切，主要是状态的集合，类比人的身体以及周围的自然环境;
@@ -87,7 +87,7 @@ model-free只能在一次行动之后静静得等待现实世界给的反馈然�
 
 马尔科夫性质：在时间步t+1时，环境的反馈仅取决于上一时间步t的状态s以及动作a，与时间步t-1以及t-1步之前的时间步都没有关联性。马尔科夫性是一种为了简化问题而做的假设，我们的强化学习就是基于这一假设来进行学习过程的，任何不符合该假设的问题都不太适合采用强化学习的方法来解决。马尔科夫决策过程如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo2.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo2.png" width="30%">
 
 策略就是从大量的完整MDP序列中学习(优化)到的，在这里我们重新回到强化学习的目标：自动寻找在连续时间序列里的最优策略，这里的最优策略通常指使得长期累计奖励最大化的策略。换句话说，策略是由长期累计奖励来判断好坏的。
 
@@ -216,35 +216,35 @@ for i in range(n): #取前n张图片
 
 运行train.py之前，要加载好要训练的数据集，如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo3.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo3.png" width="50%">
 
 以及训练好的最好模型权重best_model.pth的保存路径：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo4.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo4.png" width="50%">
 
 这里我们设置训练轮次为20，由于没有提前下载好数据集，所以程序会自动下载在我们设置好的目录下，运行结果如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo5.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo5.png" width="50%">
 
 最好的模型权重保存在设置好的路径中：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo6.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo6.png" width="30%">
 
 从下图最后一轮的损失值和精确度可以看出，平均精度都在97~98%附近，可见训练的成果已经是非常准确的了！
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo7.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo7.png" width="30%">
 
 最后我们运行test.py程序，首先要把train.py运行后保存好的best_model.pth文件加载进来，设置的参数如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo8.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo8.png" width="50%">
 
 这里我们设置推理测试数据集中的前20张图片，每推理一张图片，都会弹出来显示在屏幕上，要手动把图片关闭才能打印出预测值和实际值：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo9.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo9.png" width="30%">
 
 由下图最终的运行结果我们可以看出，推理的结果是较为准确的，大家可以增加推理图片的数量以测试模型的准确性。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo10.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo10.png" width="40%">
 
 其他数据集的训练和推理步骤和MNIST数据集大同小异。
 
@@ -276,11 +276,11 @@ def generate_model_hash(model):
 
 ```
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo11.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo11.png" width="40%">
 
 这里耗时如下图所示，可见生成哈希值的速度相对来说是很快的。注意生成哈希值的时间会受到模型参数数量和计算资源的影响，特别是在大型模型上可能会有所不同。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo20.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo20.png" width="40%">
 
 ## 成员推断攻击实现
 
@@ -382,34 +382,34 @@ train_target_model和train_shadow_models函数分别用于训练目标模型和�
 
 首先要进行run_attack.py程序中一些参数和路径的定义，如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RNN/photo17.jpg" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RNN/photo17.jpg" width="50%">
 
 全部程序运行完毕后，可以看到控制台打印出的信息，下面具体分析输出的结果。
 
 首先是一组参数（字典）的输出，这些参数定义了模型训练的配置：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo12.png" width="100%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo12.png" width="100%">
 
 其中target_model: 目标模型(RL);target_learning_rate: 目标模型的学习率;target_epochs: 目标模型训练的轮数;n_shadow: 阴影模型的数量;attack_model: 攻击模型(例如FC，全连接模型);attack_epochs: 攻击模型训练的轮数，等等。
 
 接着开始训练目标模型，输出显示了目标模型在训练集和测试集上的准确率：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo13.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo13.png" width="50%">
 
 开始训练阴影模型，每训练一个阴影模型(如0到9)，都会输出类似的信息，展示了该阴影模型在训练集和测试集上的准确率，并表明训练完成。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo14.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo15.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo14.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo15.png" width="50%">
 
 训练所有阴影模型后，继续训练攻击模型，训练了针对每个类别的攻击模型，并输出每个类别的训练集和测试集准确率。同时，还会输出用于训练和测试的数据集中的样本数量，这些数字对于评估模型的性能非常重要。通常，训练集用于调整模型参数，而测试集用于评估模型在未见过的数据上的泛化能力。在理想情况下，测试集应该足够大，以便能够提供对模型性能的可靠估计，训练集也应该足够大，以便模型能够学习到数据中的模式和特征。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo16.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo17.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo18.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo16.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo17.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo18.png" width="50%">
 
 最后打印出分类报告：输出了精确度、召回率、F1分数、支持度等指标，整体准确率在0.60~0.70附近。整体来看，修改攻击方法后准确率有所上升，但模型的表现还有提升的空间，可以进一步优化模型参数和训练策略。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo19.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo19.png" width="50%">
 
 ## 复杂场景下的成员推断攻击
 
@@ -490,15 +490,15 @@ remove_10_indices, remaining_10_indices = remove_random_data(dataset, 0.10)
 
 (1)完全重训练
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo21.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo21.png" width="40%">
 
 (图1：未删除数据的RL模型训练准确率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo22.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo22.png" width="40%">
 
 (图2：删除5%数据后的RL训练准确率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo23.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo23.png" width="40%">
 
 (图3：删除10%数据后的RL训练准确率)
 
@@ -508,11 +508,11 @@ remove_10_indices, remaining_10_indices = remove_random_data(dataset, 0.10)
 
 (2)分组重训练
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo24.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo24.png" width="50%">
 
 (图4：将数据平均分为20组，删除5%数据后的RL训练准确率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo25.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo25.png" width="50%">
 
 (图5：将数据平均分为10组，删除10%数据后的RL训练准确率)
 
@@ -528,15 +528,15 @@ remove_10_indices, remaining_10_indices = remove_random_data(dataset, 0.10)
 
 2.然后开始对形成的模型进行成员推理攻击，首先比较删除数据前后训练而成的RL模型的攻击成功率，如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo26.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo26.png" width="50%">
 
 (图6：未删除数据的RL模型攻击成功率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo27.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo27.png" width="50%">
 
 (图7：删除5%数据后的RL模型攻击成功率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/RL/photo28.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/RL/photo28.png" width="50%">
 
 (图8：删除10%数据后的RL模型攻击成功率)
 
