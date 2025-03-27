@@ -1,4 +1,4 @@
-# graph_model
+# graph
 
 2024年10月14日**更新**
 
@@ -59,7 +59,7 @@
 
 如下图所示，现有图深度学习方法可以分为三个大类：半监督方法、无监督方法和近期进展。具体来说，半监督方法包括图神经网络(GNN)和图卷积网络(GCN)，无监督方法主要包括图自编码器(GAE)，近期进展包括图循环神经网络和图强化学习。总体来说，GNN和GCN是半监督方法，因为它们利用节点属性和节点标签端到端地训练模型参数，而GAE主要使用无监督方法学习表征。近期的先进方法使用其它独特的算法(不归属前两个类别)。除了这些高层次的区别外，在模型架构上也存在很大不同。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo1.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo1.png" width="50%">
 
 **图递归神经网络(Graph RNN)**：图RNN通过在节点级别或图级别对状态进行建模来捕获图的递归和顺序模式，Graph RNN可以被分为：node-level RNN和graph-level RNN，且Graph RNN也可以和其它框架结合，如GCNs或GAEs。
 
@@ -199,31 +199,31 @@ def test(num_samples=n):
 
 运行train.py之前，要加载好要训练的数据集，如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo2.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo2.png" width="50%">
 
 以及训练好的最好模型权重best_model.pth的保存路径：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo3.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo3.png" width="50%">
 
 最好的模型权重保存在设置好的路径中：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo4.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo4.png" width="30%">
 
 从下图最后一轮的损失值和精确度可以看出，训练的成果是较为准确的，基本都在80%以上，最后会打印出所有训练轮次中精确度最高是多少。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo5.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo5.png" width="40%">
 
 最后我们运行test.py程序，首先要把train.py运行后保存好的best_model.pth文件加载进来，设置的参数如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo6.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo6.png" width="50%">
 
 这里我们设置随机选择推理测试数据集中的20张图片，每推理一张图片，都会弹出来显示在屏幕上，要手动把图片关闭才能打印出预测值和实际值：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo7.png" width="40%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo7.png" width="40%">
 
 由下图最终的运行结果我们可以看出，推理的结果是较为准确的，预测值和真实值都是相匹配的，读者可以增加推理图片的数量以测试模型的准确性。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo8.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo8.png" width="50%">
 
 其他数据集的训练和推理步骤和Cora数据集大同小异，但是可能要根据不同数据集对模型进行微调以提高模型准确率。
 
@@ -300,22 +300,22 @@ train_attack_model函数训练最终的攻击模型，使用影子模型和目�
 
 首先要进行run_attack.py程序中一些参数和路径的定义，如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo9.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo10.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo9.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo10.png" width="50%">
 
 运行后程序依次开始训练目标模型、shadow模型和攻击模型，并在屏幕上输出目标模型的损失和在训练集和测试集上的准确率、阴影模型在训练集和测试集上的准确率，以及攻击模型的最终准确率。
 
 最后打印出分类报告：输出了精确度、召回率、F1分数、支持度等指标，下面给出了Cora、PubMed、CiteSeer三种数据集的攻击实例结果：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo11.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo11.png" width="50%">
 
 (Cora数据集成员推理攻击结果)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo12.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo12.png" width="50%">
 
 (PubMed数据集成员推理攻击结果)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo13.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo13.png" width="50%">
 
 (CiteSeer数据集成员推理攻击结果)
 
@@ -342,15 +342,15 @@ RandomForestClassifier则在处理非线性数据时具有更高的表现力，�
 
 ```
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo14.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo14.png" width="50%">
 
 (Cora数据集成员推理攻击结果)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo15.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo15.png" width="50%">
 
 (PubMed数据集成员推理攻击结果)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo16.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo16.png" width="50%">
 
 (CiteSeer数据集成员推理攻击结果)
 
@@ -433,18 +433,18 @@ data.train_mask = new_train_mask
 
 (1)完全重训练
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo17.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo18.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo17.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo18.png" width="50%">
 
 (图1：未删除数据的GCN模型训练准确率-Cora数据集)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo19.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo20.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo19.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo20.png" width="50%">
 
 (图2：删除5%数据后的GCN训练准确率-Cora数据集)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo21.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo22.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo21.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo22.png" width="50%">
 
 (图3：删除10%数据后的GCN训练准确率-Cora数据集)
 
@@ -452,15 +452,15 @@ data.train_mask = new_train_mask
 
 为了得到更有说服力的结果，这里我又使用了CiteSeer数据集，结果如下：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo23.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo23.png" width="50%">
 
 (图4：未删除数据的GCN模型训练准确率-CiteSeer数据集)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo24.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo24.png" width="50%">
 
 (图5：删除5%数据后的GCN训练准确率-CiteSeer数据集)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo25.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo25.png" width="50%">
 
 (图6：删除10%数据后的GCN训练准确率-CiteSeer数据集)
 
@@ -468,13 +468,13 @@ data.train_mask = new_train_mask
 
 (2)分组重训练(以Cora数据集为例)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo26.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo27.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo26.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo27.png" width="50%">
 
 (图7：删除5%数据后的GCN训练准确率，这里随机删除了第5组的数据)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo28.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo29.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo28.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo29.png" width="50%">
 
 (图8：删除10%数据后的GCN训练准确率，这里随机删除了1组的数据)
 
@@ -492,17 +492,17 @@ data.train_mask = new_train_mask
 
 2.然后开始对形成的模型进行成员推理攻击，首先比较删除数据前后训练而成的GCN模型的攻击成功率，如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo14.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo14.png" width="50%">
 
 (图9：未删除数据的GCN模型攻击成功率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo30.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo31.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo30.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo31.png" width="50%">
 
 (图10：删除5%数据后的GCN模型攻击成功率)
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo32.png" width="50%">
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/Graph/photo33.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo32.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/Graph/photo33.png" width="50%">
 
 (图11：删除10%数据后的GCN模型攻击成功率)
 
