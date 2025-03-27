@@ -26,7 +26,7 @@
 
 ### 网络结构
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo1.png" width="60%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo1.png" width="60%">
 
 LetNet-5是一个较简单的卷积神经网络。上图显示了其结构：输入的二维图像(单通道)，先经过两次卷积层到池化层，再经过全连接层，最后为输出层。整个LeNet-5网络总共包括7层(不含输入层)，分别是：C1、S2、C3、S4、C5、F6、Output。
 
@@ -53,7 +53,7 @@ LetNet-5是一个较简单的卷积神经网络。上图显示了其结构：输
 
 C1层是卷积层，使用6个 5 * 5 大小的卷积核，其中padding=0，stride=1进行卷积，得到6个 28 * 28 大小的特征图，计算公式为：32-5+1=28。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo2.png" width="55%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo2.png" width="55%">
 
 **参数个数：** (5 * 5 + 1) * 6 = 156，其中5*5为卷积核的25个参数w，1为偏置项b。
 
@@ -63,11 +63,11 @@ C1层是卷积层，使用6个 5 * 5 大小的卷积核，其中padding=0，stri
 
 S2 层是降采样层，使用6个 2 * 2 大小的卷积核进行池化，其中padding=0，stride=2，得到6个 14 * 14 大小的特征图，计算公式为：28/2=14。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo3.png" width="60%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo3.png" width="60%">
 
 S2 层其实相当于降采样层+激活层。先是降采样，然后使用激活函数sigmoid非线性输出。先对C1层 2*2 的视野求和，然后进入激活函数，即：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo4.png" width="20%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo4.png" width="20%">
 
 **参数个数：** (1 + 1) * 6 = 12，其中第一个1为池化对应的 2 * 2 感受野中最大的那个数的权重w，第二个1为偏置b。
 
@@ -79,13 +79,13 @@ C3层是卷积层，使用16个 5 * 5 * n 大小的卷积核，其中padding=0�
 
 16个卷积核并不是都与S2的6个通道层进行卷积操作，如下图所示，C3的前六个特征图(0,1,2,3,4,5)由S2的相邻三个特征图作为输入，对应的卷积核尺寸为：5 * 5 * 3；接下来的6个特征图(6,7,8,9,10,11)由S2的相邻四个特征图作为输入，对应的卷积核尺寸为：5 * 5 * 4；接下来的3个特征图(12,13,14)号特征图由S2间断的四个特征图作为输入，对应的卷积核尺寸为：5 * 5 * 4；最后的15号特征图由S2全部(6个)特征图作为输入，对应的卷积核尺寸为：5 * 5 * 6。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo5.png" width="60%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo5.png" width="60%">
 
 ```
 注意：卷积核大小是 5 *5 且具有3个通道，但每个通道各不相同，这也是下面计算过程中 5 * 5 后面还要乘以3,4,6的原因，这是多通道卷积的计算方法。
 ```
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo6.png" width="60%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo6.png" width="60%">
 
 **参数个数：** (5 * 5 * 3 + 1) * 6 + (5 * 5 * 4 + 1) *6 + (5 * 5 * 4 + 1) * 3 + (5 * 5 * 6 + 1) * 1 = 1516。
 
@@ -115,7 +115,7 @@ F6是全连接层，共有84个神经元，与C5层进行全连接，即每个�
 
 F6层有84个节点，对应于一个 7 * 12 的比特图，其中-1表示白色，1表示黑色，这样每个符号的比特图的黑白色就对应于一个编码。ASCII 编码图如下：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo7.png" width="60%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo7.png" width="60%">
 
 **参数个数：** (120 + 1) * 84 = 10164。
 
@@ -127,13 +127,13 @@ F6层有84个节点，对应于一个 7 * 12 的比特图，其中-1表示白色
 
 Output层共有10个节点，分别代表数字0到9。假设x是上一层的输入，y是RBF函数的输出，则RBF输出的计算方式如下：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo8.png" width="20%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo8.png" width="20%">
 
 上式中i取值范围是0~9，j取值范围是0~7*12-1，w为参数。RBF输出的值越接近0，则越接近i的ASCII 编码图，表示当前网络输入的识别结果是字符i。
 
 下图是数字3的识别过程：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo9.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo9.png" width="50%">
 
 **参数个数：** 84 * 10 = 840。
 
@@ -241,37 +241,37 @@ for i in range(n): #取前n张图片
 
 成功运行完net.py程序后，加载train.py程序的数据集：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo10.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo10.png" width="50%">
 
 以及best_model.pth的保存路径：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo11.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo11.png" width="50%">
 
 这里我们设置训练轮次为50，由于没有提前下载好数据集，所以程序会自动下载在/data目录下，运行结果如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo12.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo12.png" width="50%">
 
 最好的模型权重保存在设置好的路径中：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo13.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo13.png" width="30%">
 
 从下图最后一轮的损失值和精确度可以看出，训练的成果已经是非常准确的了！
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo14.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo14.png" width="30%">
 
 最后我们运行test.py程序，首先要把train.py运行后保存好的best_model.pth文件加载进来，设置的参数如下图所示：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo15.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo15.png" width="50%">
 
 这里我们设置推理测试数据集中的前20张图片，每推理一张图片，都会弹出来显示在屏幕上，要手动把图片关闭才能打印出预测值和实际值：
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo16.png" width="30%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo16.png" width="30%">
 
 由下图最终的运行结果我们可以看出，推理的结果是较为准确的，大家可以增加推理图片的数量以测试模型的准确性。
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo17.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo17.png" width="50%">
 
-<img src="https://hepucuncao.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo18.png" width="50%">
+<img src="https://hepucuncao1.obs.cn-south-1.myhuaweicloud.com/LeNet5/photo18.png" width="50%">
 
 其他数据集的训练和推理步骤和MNIST数据集大同小异。
 
