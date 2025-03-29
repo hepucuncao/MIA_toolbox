@@ -11,6 +11,7 @@
 ## 详细参数说明（参数名-类型-默认值）：
  
 （1）全局控制参数
+```
 --action int 0 操作模式选择（0：标准训练模式，1：调试模式）
 --seed int 0 随机种子（0：使用随机种子）
 --mode str "target" 模型运行角色（target：目标模型训练，shadow：影子模型训练，distill_target：带蒸馏的目标模型，distill_shadow：带蒸馏的影子模型）  
@@ -18,18 +19,25 @@
 --data str "cifar100" 训练数据集选择
 --epochs int 100 基础训练轮数（非蒸馏模式下）
 --batch_size int 64 训练/推理的批大小 
+```
 
 （2）数据撤销参数
+```
 --detected int 0 数据撤销功能开关（0：禁用，1：启用）
 --ratio float 0.05 数据删除比例（范围0.0~1.0） 
+```
 
 （3）知识蒸馏参数
+```
 --model distill str "resnet" 蒸馏模型架构选择（需与主模型架构保持一致）
 --epochs_distill int 100 蒸馏训练专用轮数 
+```
 
 （4）攻击模型参数
+```
 --mia_type str None 成员推理攻击类型（build-dataset：构建攻击数据集，black-box：黑盒攻击模式） 
 --port_num int 3 输入的图片数据集的维数（3：彩色图片，1：黑白图片）
+```
 
 ## 用法
 
