@@ -1,11 +1,35 @@
 # 支持数据撤销的模型成员推理攻击工具箱
 
 本项目是一个支持数据撤销的成员推理攻击工具，支持mnist、cifar10、cifar100、cinic10等多种数据集，可实现针对LeNet、RNN、ResNet、RL等多种模型的成员推理攻击，并给用户一个详细的使用文档。
+
 ## 环境
 
  - Python 3.9
 
  - PyTorch>=1.10.0
+
+## 详细参数说明（参数名-类型-默认值）：
+ 
+（1）全局控制参数
+--action int 0 操作模式选择（0：标准训练模式，1：调试模式）
+--seed int 0 随机种子（0：使用随机种子）
+--mode str "target" 模型运行角色（target：目标模型训练，shadow：影子模型训练，distill_target：带蒸馏的目标模型，distill_shadow：带蒸馏的影子模型）  
+--model str "resnet" 主模型架构选择
+--data str "cifar100" 训练数据集选择
+--epochs int 100 基础训练轮数（非蒸馏模式下）
+--batch_size int 64 训练/推理的批大小 
+
+（2）数据撤销参数
+--detected int 0 数据撤销功能开关（0：禁用，1：启用）
+--ratio float 0.05 数据删除比例（范围0.0~1.0） 
+
+（3）知识蒸馏参数
+--model distill str "resnet" 蒸馏模型架构选择（需与主模型架构保持一致）
+--epochs_distill int 100 蒸馏训练专用轮数 
+
+（4）攻击模型参数
+--mia_type str None 成员推理攻击类型（build-dataset：构建攻击数据集，black-box：黑盒攻击模式） 
+--port_num int 3 输入的图片数据集的维数（3：彩色图片，1：黑白图片）
 
 ## 用法
 
@@ -20,7 +44,7 @@ pip install mia-1.0-py3-none-any.whl
 
 在你的代码中通过import mia就可以导入该库，或通过from mia import core,utils导入必要的模块，并需要传入必要的参数，可以在程序中定义默认值也可以通过命令行传入，接着就可以调用core中的函数来进行成员推理攻击。
 
-其中，detected和ration参数分别代表是否启动数据撤销功能以及撤销数据的比例，默认不进行数据撤销。下面展示命令行传入的过程：
+其中，detected和ratio参数分别代表是否启动数据撤销功能以及撤销数据的比例，默认不进行数据撤销。下面展示命令行传入的过程：
 - 训练目标模型
 ```
 python main.py --mode target
@@ -31,7 +55,7 @@ python main.py --mode shadow
 ```
 影子模型经过训练以模拟目标模型的行为。
 
-### 第二步（可选）：Distill目标模型和影子模型
+### 第三步（可选）：Distill目标模型和影子模型
 
 - Distill目标模型
 ```
@@ -42,7 +66,7 @@ python main.py --mode distill_target
 python main.py --mode distill_shadow
 ```
 
-### 第三步：为攻击模型准备数据集
+### 第四步：为攻击模型准备数据集
 
 - 获取攻击模型训练数据
 ```
@@ -53,7 +77,7 @@ python main.py --action 1 --mode shadow --mia_type build-dataset
 python main.py --action 1 --mode target --mia_type build-dataset
 ```
 
-### 第四步：训练和测试攻击模型
+### 第五步：训练和测试攻击模型
 
 ```
 python main.py --action 1 --mia_type black-box
@@ -86,7 +110,7 @@ python main.py --action 1 --mia_type black-box
 
 ## 实例
 
-本项目默认使用CIFAR100数据集，针对ResNet56模型且epoch为100，您可以根据需要更改参数。
+本项目默认使用CIFAR100数据集，针对ResNet56模型且epoch为100，用户可以根据需要更改参数。
 
 下面是一个使用该库的示例代码(demo.py)：
 ```
