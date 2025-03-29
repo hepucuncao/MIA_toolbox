@@ -23,11 +23,11 @@ pip install mia-1.0-py3-none-any.whl
 其中，detected和ration参数分别代表是否启动数据撤销功能以及撤销数据的比例，默认不进行数据撤销。下面展示命令行传入的过程：
 - 训练目标模型
 ```
-python test.py --mode target
+python main.py --mode target
 ```
 - 训练影子模型
 ```
-python test.py --mode shadow
+python main.py --mode shadow
 ```
 影子模型经过训练以模拟目标模型的行为。
 
@@ -35,22 +35,22 @@ python test.py --mode shadow
 
 - Distill目标模型
 ```
-python test.py --mode distill_target
+python main.py --mode distill_target
 ```
 - Distill影子模型
 ```
-python test.py --mode distill_shadow
+python main.py --mode distill_shadow
 ```
 
 ### 第三步：为攻击模型准备数据集
 
 - 获取攻击模型训练数据
 ```
-python test.py --action 1 --mode shadow --mia_type build-dataset
+python main.py --action 1 --mode shadow --mia_type build-dataset
 ```
 - 获取影子模型训练数据
 ```
-python test.py --action 1 --mode target --mia_type build-dataset
+python main.py --action 1 --mode target --mia_type build-dataset
 ```
 
 ### 第四步：训练和测试攻击模型
